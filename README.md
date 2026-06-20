@@ -5,12 +5,12 @@ About FIT5145, this unit looks at processes, case studies and simple tools to un
 
 
 ## Research Project
-This document mainly focused on
+This document mainly focused on demonstrating a conceptual public health big data project that establishes an innovative multi-target machine learning framework to forecast multiple mosquito-borne diseases simultaneously. Grounded in the DataONE data science lifecycle and the NIST big data framework, this work details the collection and ETL integration of high-velocity environmental satellite data with structured clinical metrics, while mapping out strict data governance, role-based access control (RBAC), and patient anonymization protocols. The analytical methodology incorporates Multiple Linear Regression (MLR), Long Short-Term Memory (LSTM) networks, and Multilayer Perceptrons (MLP) to uncover complex non-linear risk patterns, which are supported by a practical data demonstration visualizing how climate variables, government pesticide interventions, and community immunization thresholds directly impact localized case counts and hospital bed deficits.
 
 ## R Studio practices 1
-This document mainly focused on
+This document mainly focused on investigation and visualization task in R using a dataset of Irish news articles spanning from 1996 to 2021. The required tasks involved reading and cleaning the data file to resolve anomalies, followed by executing exploratory data analysis to evaluate public engagement scores across various news providers and headline categories. Key operational requirements included computing aggregate statistics, performing correlation analysis between yearly article volumes and mean engagement, mapping seasonal trends, and integrating external datasets to investigate long-term publishing trends over a 20-year period.
 
 ## R Studio practices 2
-This document mainly focused on
+This document mainly focused on comprising the practical coding, scripting, and statistical analysis. The first phase utilizes Cygwin AWK terminal scripting to ingest, clean, and format property transaction records, which is paired with a reflective essay exploring systemic biases (such as gender, aging, and socioeconomic stereotypes) elicited from Large Language Models via strategic prompt engineering. The second phase leverages R programming (tidyverse) to clean real estate data, map housing transaction distributions, analyze five-year capital growth, and fit a multiple linear regression model to predict future property prices. Additionally, this section builds and optimizes a logistic regression classification model using feature selection and z-score rescaling to predict the content relevance of student forum posts, backed by ANOVA testing to prove that academic faculty choice holds a highly significant relationship with student writing styles.
 
 Source: [1]: https://handbook.monash.edu/2026/units/FIT5145
