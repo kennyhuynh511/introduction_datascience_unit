@@ -1,0 +1,140 @@
+---
+title: "NguyenKhang_33326460_Assignment3"
+output: html_document
+date: "2026-05-18"
+---
+output:
+  html_document: default
+  pdf_document: default
+---
+#### GENERATIVE AI DECLERATION:
+In this assignment, I used Gemini Chatbot to brainstorm, improve writing and clarity, explain the coding, concepts, and suggest how to approach the implementation.
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  eval = TRUE,
+  echo = TRUE,
+  message = FALSE,   
+  warning = FALSE    
+)
+```
+#### Import data set and load library
+
+```{r}
+# Load tidyverse
+library(tidyverse)
+```
+```{r message = FALSE, warning=FALSE}
+# You can download this file in this drive: https://drive.google.com/drive/folders/13RS_DPyM67KVr4nBs1xzBIlzE80KHSv-?usp=sharing 
+# import the data set
+mosquito_data <-read_csv('mosquito_borne_disease_climate_dataset.csv')
+```
+
+```{r}
+# Isolate ecological indicators and evaluate outbreak relationships
+ecological_synergy <- mosquito_data %>%
+  filter(!is.na(Humidity_rate_percent), !is.na(Stagnant_water_area_m2), !is.na(Mosquito_Density_per_Ha))
+
+# Generate a continuous scatter visualization color-scaled by case volumes
+ggplot(ecological_synergy, aes(x = Humidity_rate_percent, y = Stagnant_water_area_m2, color = Mosquito_Density_per_Ha)) +
+  geom_point(alpha = 0.6, size = 2) +
+  scale_color_viridis_c(option = "inferno") +
+  labs(
+    title = "Analysis 1: Mosqutio density Distribution across Humidity & Stagnant Water",
+    x = "Atmospheric Humidity Rate (%)",
+    y = "Stagnant Water Surface Area (sq meters)",
+    color = "Mosqutio density"
+  ) +
+  theme_classic()
+
+
+```
+```{r}
+# Proving that some place that has low mosquito density despite has high stagnant water and humidity rate.
+high_risk_environments <- mosquito_data %>%
+  filter(
+    !is.na(Humidity_rate_percent), 
+    !is.na(Stagnant_water_area_m2), 
+    !is.na(Pesticide_spray_count_per_month), 
+    !is.na(Mosquito_Density_per_Ha)
+  ) %>%
+  # Filter for records exceeding the median for both humidity and stagnant water
+  filter(
+    Humidity_rate_percent > median(Humidity_rate_percent, na.rm = TRUE),
+    Stagnant_water_area_m2 > median(Stagnant_water_area_m2, na.rm = TRUE)
+  )
+
+# Plot pesticide applications against the resulting vector density in these hot spots
+ggplot(high_risk_environments, aes(x = Pesticide_spray_count_per_month, y = Mosquito_Density_per_Ha)) +
+  geom_point(alpha = 0.6, aes(size = Stagnant_water_area_m2, color = Humidity_rate_percent)) +
+  geom_smooth(method = "lm", color = "blue", linetype = "solid", linewidth = 1.2) +
+  scale_color_viridis_c(option = "mako") +
+  labs(
+    title = "Analysis 2: Pesticide Control Efficacy Within Mosquito density rate",
+    x = "Pesticide Spray Count (per Month)",
+    y = "Resulting Mosquito Density (per Hectare)",
+    color = "Humidity Rate (%)",
+    size = "Stagnant Water (m²)"
+  ) +
+  theme_minimal()
+```
+
+```{r}
+# Filter out missing records to ensure statistical accuracy
+susceptibility_trends <- mosquito_data %>%
+  filter(Cases_count<=2000000,!is.na(Susceptible_population_rate_percent), !is.na(Cases_count))
+
+# Generate a scatter plot with an advanced non-linear smoothed trendline
+ggplot(susceptibility_trends, aes(x = Susceptible_population_rate_percent, y = Cases_count)) +
+  geom_point(alpha = 0.4, aes(color = Country)) +
+  geom_smooth(method = "gam", color = "darkred", linewidth = 1.2) +
+  scale_color_brewer(palette = "Dark2") +
+  scale_y_continuous(labels = scales::label_number(scale = 1e-6, suffix = "M")) +
+  labs(
+    title = "Analysis 3: Impact of Population Susceptibility on Case Counts",
+    x = "Susceptible Population Rate (%)",
+    y = "Total Confirmed Clinical Cases (Millions case)",
+    color = "Country"
+  ) +
+  theme_minimal()
+
+
+```
+```{r}
+#Healthcare Infrastructure Vulnerability Matrix
+
+# Calculate a vulnerability index comparing cases to available hospital infrastructure
+infrastructure_vulnerability <- mosquito_data %>%
+  filter(!is.na(Hospital_beds), !is.na(Cases_count), !is.na(Health_funding_AUD)) %>%
+  group_by(Country, Province) %>%
+  summarise(
+    Average_cases = mean(Cases_count),
+    Average_Bed_Capacity = mean(Hospital_beds),
+    Bed_Deficit_Ratio = Average_cases / (Average_Bed_Capacity + 1), # Insulates against division by zero
+    .groups = 'drop'
+  ) %>%
+  arrange(desc(Bed_Deficit_Ratio))
+
+# Print a structured markdown table summarizing the top 5 most vulnerable regions
+infrastructure_vulnerability %>% 
+  slice_max(order_by = Bed_Deficit_Ratio, n = 10)
+
+```
+
+```{r}
+# Segment records into categorical vaccination capacity tiers
+# Clean missing parameters and trace immunization trends
+vaccination_suppression <- mosquito_data %>%
+  filter(Cases_count<=500000,!is.na(Vaccination_rate_percent), !is.na(Cases_count))
+
+# Visualize the negative correlation to identify safety thresholds
+ggplot(vaccination_suppression, aes(x = Vaccination_rate_percent, y = Cases_count)) +
+  geom_point(alpha = 0.4, color = "cadetblue") +
+  geom_smooth(method = "loess", color = "forestgreen", linewidth = 1.2, se = TRUE) +
+  scale_y_continuous(labels = scales::label_number(scale = 1e-5, suffix = "M")) +
+  labs(
+    title = "Analysis 4: Evaluating Outbreak Suppression via Regional Vaccination Coverage",
+    x = "Community Vaccination Rate (%)",
+    y = "Total Confirmed Clinical Cases (hundread thoundsands)"
+  ) +
+  theme_bw()
+```
