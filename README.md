@@ -3,6 +3,14 @@ This repository contain all my work that I have done while studying unit FIT5145
 
 About FIT5145, this unit looks at processes, case studies and simple tools to understand the many facets of working with data, and the significant effort in Data Science over and above the core task of Data Analysis. Working with data as part of a business model and the lifecycle in an organisation is considered, as well as business processes and case studies. Data and its handling is also introduced: characteristic kinds of data and its collection, data storage and basic kinds of data preparation, data cleaning and data stream processing. Styles of data analysis and outcomes of successful data exploration and analysis are reviewed. Standards, tools and resources are also reviewed. Basic curation and management are reviewed: archival and architectural practice, policy, legal and ethical issues [1].
 
+What I have achieved:
+- Analyzed and addressed organizational data roles, including key curation and data management challenges.
+- Utilized exploratory data analysis (EDA) and visualization tools to extract actionable insights from raw data.
+- Developed basic predictive models and integrated analysis results to drive strategic, real-world decision-making.
+- Applied big data tools to efficiently process and manage large-scale datasets.
+- Scoped data projects by accurately identifying required data resources, storage, processing needs, and industry standards.
+- Evaluated and mitigated critical ethical, privacy, and security risks inherent to data science practices.
+
 
 ## Research Project
 This document mainly focused on demonstrating a conceptual public health big data project that establishes an innovative multi-target machine learning framework to forecast multiple mosquito-borne diseases simultaneously. Grounded in the DataONE data science lifecycle and the NIST big data framework, this work details the collection and ETL integration of high-velocity environmental satellite data with structured clinical metrics, while mapping out strict data governance, role-based access control (RBAC), and patient anonymization protocols. The analytical methodology incorporates Multiple Linear Regression (MLR), Long Short-Term Memory (LSTM) networks, and Multilayer Perceptrons (MLP) to uncover complex non-linear risk patterns, which are supported by a practical data demonstration visualizing how climate variables, government pesticide interventions, and community immunization thresholds directly impact localized case counts and hospital bed deficits.
